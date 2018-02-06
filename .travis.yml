@@ -1,0 +1,24 @@
+language: python
+python:
+- '3.6'
+- '3.5'
+- '2.7'
+sudo: required
+services:
+- docker
+install:
+- pip install -r requirements.txt
+before_script:
+- docker run -d -p 127.0.0.1:1883:1883 thethingsnetwork/rabbitmq
+script:
+- pycodestyle --first src
+before_deploy:
+- python setup.py sdist
+- python setup.py bdist_wheel --universal
+deploy:
+  provider: pypi
+  user: emmlejeail
+  password:
+    secure: tRinOdhE+SFJIzIQfgqSpyk15zegRlh3W9IkTuxB+xR+BmMWiDqOVWrPmnTodMn4VT4dPHrbro6kxfjBRRa1NU9XGZmRBFb3tIgPZ1PYuTf8T/qgpEyVU62dhv5tQuxRbSh4ghMAFqm+YA7PaW6hHpxo7pfALhaKghT1bVDjbNT+kWxJBAE7D6aDdjvlZGSLQqeGbJfASoJVZEphIaTamW6oR1MH3SVmr4i1j6UGqjNyOrSyyF4CINgCbo2RalJspRWGmUiLpIl8thN9sRnmB3xLZgh2GqYaXiQxxz1wob1joD7splbPjFOc7/IApW71g9fMUKI4NY/cpYyYhg1JyuMb93ywAMLJVn+UbBLj5h01ANkvBdkWVP0+7t3X53NEfop1VO0G3qR6cTQM6X10xC33hcpfJgcVnJnHUmirVzPGfBZpKOxPlLuIbGsm63A/Bi6b0XtUG57XHA5P6dXeUqkMGfO1dhYflGpQWv8S83MFquf4wOpHtBfZBzUOyqyV9Sho0coANllD4F4lAuyHoU+DEC08346ybjQsma0mDeEL+Zopp1BZDVGXJu6I6GV3jxXJkgR5w/NgDYMsQMsJIdI03nGs73HJC6rA++Gy4JDoTQdNGpitEBHwxO7ElWCcBPlXY61HVbQvJUoMtsvb86GL2F1QBMPNnMVT6gaRe8k=
+  branch: master
+  tags: true
