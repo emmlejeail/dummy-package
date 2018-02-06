@@ -6,7 +6,7 @@
 from setuptools import setup
 
 setup(name="emmlej-dummy",
-      version="0.0.1",
+      version="0.0.2",
       description="Dummy Package for Testing",
       long_description = "Dummy package to test upload to Pypi with Travis",
       url = "https://github.com/emmlejeail/dummy-package",
